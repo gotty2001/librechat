@@ -193,7 +193,7 @@ endpoints:
     # Hugging Face Microsoft Phi-4 API
     - name: "Hugging Face Phi-4"
       apiKey: "hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-      baseURL: "https://api-inference.huggingface.co/models/microsoft/phi-4/v1/chat/completions"
+      baseURL: "https://api-inference.huggingface.co/models/microsoft/phi-4/v1"
       models:
         default: ["microsoft/phi-4"]
         fetch: false
