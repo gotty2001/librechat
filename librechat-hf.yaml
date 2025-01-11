@@ -9,27 +9,57 @@ endpoints:
   custom:
     # Mistral AI API
     - name: "Mistral"  # Unique name for the endpoint
+      # For `apiKey` and `baseURL`, you can use environment variables that you define.
+      # recommended environment variables:
       apiKey: "user_provided"
       baseURL: "https://api.mistral.ai/v1"
-      models:
+
+      # Models configuration
+      models: 
+        # List of default models to use. At least one value is required.
         default: ["mistral-tiny", "mistral-small", "mistral-medium"]
-        fetch: true
-      titleConvo: true
-      titleMethod: "completion"
-      titleModel: "mistral-tiny"
+        # Fetch option: Set to true to fetch models from API.
+        fetch: true  # Defaults to false.
+
+      # Optional configurations
+      
+      # Title Conversation setting
+      titleConvo: true  # Set to true to enable title conversation
+
+      # Title Method: Choose between "completion" or "functions".
+      titleMethod: "completion"  # Defaults to "completion" if omitted.
+
+      # Title Model: Specify the model to use for titles.
+      titleModel: "mistral-tiny"  # Defaults to "gpt-3.5-turbo" if omitted.
+
+      # Summarize setting: Set to true to enable summarization.
       summarize: false
-      summaryModel: "mistral-tiny"
+
+      # Summary Model: Specify the model to use if summarization is enabled.
+      summaryModel: "mistral-tiny"  # Defaults to "gpt-3.5-turbo" if omitted.
+
+      # Force Prompt setting: If true, sends a `prompt` parameter instead of `messages`.
       forcePrompt: false
-      modelDisplayLabel: "Mistral"
+
+      # The label displayed for the AI model in messages.
+      modelDisplayLabel: "Mistral"  # Default is "AI" when not set.
+
+      # Add additional parameters to the request. Default params will be overwritten.
       addParams:
-        safe_mode: true
-      dropParams:
-        - stop
-        - temperature
-        - top_p
+        safe_mode: true # This field is specific to Mistral AI: https://docs.mistral.ai/api/
+        
+      # Drop Default params parameters from the request. See default params in guide linked below.
+      dropParams: ["stop", "temperature", "top_p"]
+      # - stop # dropped since it's not recognized by Mistral AI API
+      # `temperature` and `top_p` are removed to allow Mistral AI API defaults to be used:
+      # - temperature
+      # - top_p
 
     # OpenRouter.ai
     - name: "OpenRouter"
+      # For `apiKey` and `baseURL`, you can use environment variables that you define.
+      # recommended environment variables:
+      # Known issue: you should not use `OPENROUTER_API_KEY` as it will then override the `openAI` endpoint to use OpenRouter as well.
       apiKey: "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"
       baseURL: "https://openrouter.ai/api/v1"
       models:
@@ -44,6 +74,9 @@ endpoints:
 
     # NagaAI
     - name: "NagaAI"
+      # For `apiKey` and `baseURL`, you can use environment variables that you define.
+      # recommended environment variables:
+      # Known issue: you should not use `OPENROUTER_API_KEY` as it will then override the `openAI` endpoint to use OpenRouter as well.
       apiKey: "user_provided"
       baseURL: "https://api.naga.ac/v1"
       models:
@@ -59,7 +92,7 @@ endpoints:
 
     # Cerebras
     - name: "Cerebras"
-      apiKey: "csk-f9w9h46j83e2vfrk6kwpnc566whjy46yrfemc4erwk5k3rd6"
+      apiKey: "csk-f9w9h46j83e2vfrk6kwpnc566whjy46yrfemc4erwk5k3rd6"  # ให้ผู้ใช้ป้อน API Key
       baseURL: "https://api.cerebras.ai/v1"
       models:
         default: ["llama3.1-8b", "llama3.1-70b", "llama-3.3-70b"]
@@ -68,7 +101,7 @@ endpoints:
       titleModel: "llama3.1-8b"
       summarize: false
       summaryModel: "llama3.1-8b"
-      forcePrompt: false
+      forcePrompt: false  # ปิดการส่ง `prompt` เพื่อใช้ `messages` แทน
       modelDisplayLabel: "Cerebras AI"
       iconURL: "https://cdn-icons-png.flaticon.com/128/8131/8131880.png"
       addParams:
@@ -140,7 +173,7 @@ endpoints:
       apiKey: "dummy"
       baseURL: "https://api.aieat.or.th/v1"
       models:
-        default: ["."]  
+        default: ["."]
         fetch: false
       titleConvo: true
       titleModel: "."
@@ -166,7 +199,7 @@ endpoints:
 
     # OpenTyphoon.ai API
     - name: "OpenTyphoon"
-      apiKey: "sk-BET4yZq8hG3uoUwo2ilOyMYEhoXk1Uel3Gz9v5VpGMk6Hio7"
+      apiKey: "sk-BET4yZq8hG3uoUwo2ilOyMYEhoXk1Uel3Gz9v5VpGMk6Hio7"  # Replace with your actual API key
       baseURL: "https://api.opentyphoon.ai/v1/chat/completions"
       models:
         default:
@@ -190,24 +223,5 @@ endpoints:
       modelDisplayLabel: "OpenTyphoon AI"
       iconURL: "https://cdn-icons-png.flaticon.com/128/8484/8484072.png"
 
-    # Hugging Face Microsoft Phi-4 API
-    - name: "Hugging Face Phi-4"
-      apiKey: "hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-      baseURL: "https://api-inference.huggingface.co/models/microsoft/phi-4/v1"
-      models:
-        default: ["microsoft/phi-4"]
-        fetch: false
-      titleConvo: true
-      titleModel: "microsoft/phi-4"
-      summarize: false
-      summaryModel: "microsoft/phi-4"
-      forcePrompt: false
-      modelDisplayLabel: "Hugging Face Phi-4"
-      iconURL: "https://huggingface.co/favicon.ico"
-      addParams:
-        max_tokens: 500
-        stream: true
-      dropParams:
-        - stop
-        - temperature
-        - top_p
+# See the Custom Configuration Guide for more information:
+# https://docs.librechat.ai/install/configuration/custom_config.html
