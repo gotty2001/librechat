@@ -223,5 +223,26 @@ endpoints:
       modelDisplayLabel: "OpenTyphoon AI"
       iconURL: "https://cdn-icons-png.flaticon.com/128/8484/8484072.png"
 
+    # Hugging Face Microsoft Phi-4 API
+    - name: "Hugging Face Phi-4"
+      apiKey: "user_provided"
+      baseURL: "https://api-inference.huggingface.co/models/microsoft/phi-4/v1/chat/completions"
+      models:
+        default: ["microsoft/phi-4"]
+        fetch: false
+      titleConvo: true
+      titleModel: "microsoft/phi-4"
+      summarize: false
+      summaryModel: "microsoft/phi-4"
+      forcePrompt: false
+      modelDisplayLabel: "Hugging Face Phi-4"
+      iconURL: "https://huggingface.co/favicon.ico"
+      addParams:
+        max_tokens: 500
+        stream: true
+      dropParams:
+        - stop
+        - temperature
+        - top_p
 # See the Custom Configuration Guide for more information:
 # https://docs.librechat.ai/install/configuration/custom_config.html
