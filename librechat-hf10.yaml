@@ -228,7 +228,7 @@ endpoints:
       apiKey: "user_provided"
       baseURL: "https://api-inference.huggingface.co/v1"
       models:
-        default: ["impira/layoutlm-document-qa", "mistralai/Mistral-Nemo-Instruct-2407","NousResearch/Hermes-3-Llama-3.1-8B","meta-llama/Llama-3.3-70B-Instruct", "tiiuae/falcon-7b-instruct","Qwen/Qwen2.5-Coder-32B-Instruct", "microsoft/Phi-3.5-mini-instruct", "meta-llama/Llama-3.2-3B-Instruct", "meta-llama/Llama-3.1-8B-Instruct", "meta-llama/Llama-3.1-70B-Instruct", "Qwen/Qwen2.5-72B-Instruct", "Qwen/QwQ-32B-Preview", "CodeLlama/CodeLlama-34B-Instruct-hf", "Meta-Llama/Llama-3.1-70B-Instruct", "meta-llama/Llama-3.2-1B-Instruct"]
+        default: ["PowerInfer/SmallThinker-3B-Preview", "impira/layoutlm-document-qa", "mistralai/Mistral-Nemo-Instruct-2407","NousResearch/Hermes-3-Llama-3.1-8B","meta-llama/Llama-3.3-70B-Instruct", "tiiuae/falcon-7b-instruct","Qwen/Qwen2.5-Coder-32B-Instruct", "microsoft/Phi-3.5-mini-instruct", "meta-llama/Llama-3.2-3B-Instruct", "meta-llama/Llama-3.1-8B-Instruct", "meta-llama/Llama-3.1-70B-Instruct", "Qwen/Qwen2.5-72B-Instruct", "Qwen/QwQ-32B-Preview", "CodeLlama/CodeLlama-34B-Instruct-hf", "Meta-Llama/Llama-3.1-70B-Instruct", "meta-llama/Llama-3.2-1B-Instruct"]
         fetch: false
       titleConvo: true
       titleModel: "NousResearch/Hermes-3-Llama-3.1-8B"
