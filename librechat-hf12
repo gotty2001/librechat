@@ -1,0 +1,250 @@
+# Configuration version (required)
+version: 1.0.0
+
+# Cache settings: Set to true to enable caching
+cache: true
+
+# Definition of custom endpoints
+endpoints:
+  custom:
+    # Mistral AI API
+    - name: "Mistral"  # Unique name for the endpoint
+      # For `apiKey` and `baseURL`, you can use environment variables that you define.
+      # recommended environment variables:
+      apiKey: "user_provided"
+      baseURL: "https://api.mistral.ai/v1"
+
+      # Models configuration
+      models: 
+        # List of default models to use. At least one value is required.
+        default: ["mistral-tiny", "mistral-small", "mistral-medium"]
+        # Fetch option: Set to true to fetch models from API.
+        fetch: true  # Defaults to false.
+
+      # Optional configurations
+      
+      # Title Conversation setting
+      titleConvo: true  # Set to true to enable title conversation
+
+      # Title Method: Choose between "completion" or "functions".
+      titleMethod: "completion"  # Defaults to "completion" if omitted.
+
+      # Title Model: Specify the model to use for titles.
+      titleModel: "mistral-tiny"  # Defaults to "gpt-3.5-turbo" if omitted.
+
+      # Summarize setting: Set to true to enable summarization.
+      summarize: false
+
+      # Summary Model: Specify the model to use if summarization is enabled.
+      summaryModel: "mistral-tiny"  # Defaults to "gpt-3.5-turbo" if omitted.
+
+      # Force Prompt setting: If true, sends a `prompt` parameter instead of `messages`.
+      forcePrompt: false
+
+      # The label displayed for the AI model in messages.
+      modelDisplayLabel: "Mistral"  # Default is "AI" when not set.
+
+      # Add additional parameters to the request. Default params will be overwritten.
+      addParams:
+        safe_mode: true # This field is specific to Mistral AI: https://docs.mistral.ai/api/
+        
+      # Drop Default params parameters from the request. See default params in guide linked below.
+      dropParams: ["stop", "temperature", "top_p"]
+      # - stop # dropped since it's not recognized by Mistral AI API
+      # `temperature` and `top_p` are removed to allow Mistral AI API defaults to be used:
+      # - temperature
+      # - top_p
+
+    # OpenRouter.ai
+    - name: "OpenRouter"
+      # For `apiKey` and `baseURL`, you can use environment variables that you define.
+      # recommended environment variables:
+      # Known issue: you should not use `OPENROUTER_API_KEY` as it will then override the `openAI` endpoint to use OpenRouter as well.
+      apiKey: "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"
+      baseURL: "https://openrouter.ai/api/v1"
+      models:
+        default: ["gpt-3.5-turbo"]
+        fetch: true
+      titleConvo: true
+      titleModel: "gpt-3.5-turbo"
+      summarize: false
+      summaryModel: "gpt-3.5-turbo"
+      forcePrompt: false
+      modelDisplayLabel: "OpenRouter"
+
+    # NagaAI
+    - name: "NagaAI"
+      # For `apiKey` and `baseURL`, you can use environment variables that you define.
+      # recommended environment variables:
+      # Known issue: you should not use `OPENROUTER_API_KEY` as it will then override the `openAI` endpoint to use OpenRouter as well.
+      apiKey: "user_provided"
+      baseURL: "https://api.naga.ac/v1"
+      models:
+        default: ["claude-2", "claude-instant", "code-llama-34b", "falcon-180b-chat", "gemini-pro", "gemini-pro-vision", "gpt-3.5-turbo", "gpt-3.5-turbo-0613", "gpt-3.5-turbo-1106", "gpt-4", "gpt-4-0613", "gpt-4-1106-preview", "gpt-4-vision-preview", "llama-2-13b-chat", "llama-2-70b-chat", "llama-2-7b-chat", "mistral-7b", "mixtral-8x7b"]
+        fetch: true
+      titleConvo: true
+      titleModel: "gpt-3.5-turbo"
+      summarize: false
+      summaryModel: "gpt-3.5-turbo"
+      forcePrompt: false
+      modelDisplayLabel: "NagaAI"
+      iconURL: "https://cdn-icons-png.flaticon.com/128/5278/5278402.png"
+
+    # Cerebras
+    - name: "Cerebras"
+      apiKey: "csk-f9w9h46j83e2vfrk6kwpnc566whjy46yrfemc4erwk5k3rd6"  # ให้ผู้ใช้ป้อน API Key
+      baseURL: "https://api.cerebras.ai/v1"
+      models:
+        default: ["llama3.1-8b", "llama3.1-70b", "llama-3.3-70b"]
+        fetch: false
+      titleConvo: true
+      titleModel: "llama3.1-8b"
+      summarize: false
+      summaryModel: "llama3.1-8b"
+      forcePrompt: false  # ปิดการส่ง `prompt` เพื่อใช้ `messages` แทน
+      modelDisplayLabel: "Cerebras AI"
+      iconURL: "https://cdn-icons-png.flaticon.com/128/8131/8131880.png"
+      addParams:
+        temperature: 0
+        max_tokens: 100
+        top_p: 1
+      dropParams:
+        - stop
+        - temperature
+        - top_p
+
+    # DeepSeek
+    - name: "DeepSeek"
+      apiKey: "sk-7e65e1e268d4468a84f6d7fd4c946339"
+      baseURL: "https://api.deepseek.com/v1"
+      models:
+        default: ["deepseek-chat"]
+        fetch: false
+      titleConvo: true
+      titleModel: "deepseek-chat"
+      summarize: false
+      summaryModel: "deepseek-chat"
+      forcePrompt: false
+      modelDisplayLabel: "DeepSeek AI"
+      iconURL: "https://cdn-icons-png.flaticon.com/128/1998/1998810.png"
+      addParams:
+        stream: false
+      dropParams:
+        - stop
+        - temperature
+        - top_p
+
+    # SambaNova
+    - name: "SambaNova"
+      apiKey: "e2edf66e-21e2-498b-9379-1eef9378c8f5"
+      baseURL: "https://api.sambanova.ai/v1"
+      models:
+        default:
+          - "Meta-Llama-3.1-405B-Instruct"
+          - "Meta-Llama-3.1-70B-Instruct"
+          - "Meta-Llama-3.1-8B-Instruct"
+          - "Meta-Llama-3.2-1B-Instruct"
+          - "Meta-Llama-3.2-3B-Instruct"
+          - "Meta-Llama-3.3-70B-Instruct"
+          - "Meta-Llama-Guard-3-8B"
+          - "Qwen2.5-72B-Instruct"
+          - "Qwen2.5-Coder-32B-Instruct"
+          - "QwQ-32B-Preview"
+          - "Llama-3.2-11B-Vision-Instruct"
+          - "Llama-3.2-90B-Vision-Instruct"
+          - "Qwen2-Audio-7B-Instruct"
+        fetch: false
+      titleConvo: true
+      titleModel: "Meta-Llama-3.1-8B-Instruct"
+      summarize: false
+      summaryModel: "Meta-Llama-3.1-8B-Instruct"
+      forcePrompt: false
+      modelDisplayLabel: "SambaNova AI"
+      iconURL: "https://cdn-icons-png.flaticon.com/128/12122/12122348.png"
+      addParams:
+        stream: true
+      dropParams:
+        - stop
+        - temperature
+        - top_p
+
+    # AIEat Siam ai
+    - name: "Siamai"
+      apiKey: "dummy"
+      baseURL: "https://api.aieat.or.th/v1"
+      models:
+        default: ["."]
+        fetch: false
+      titleConvo: true
+      titleModel: "."
+      summarize: false
+      summaryModel: "."
+      forcePrompt: true
+      modelDisplayLabel: "AIEat"
+      iconURL: "https://cdn-icons-png.flaticon.com/128/10598/10598728.png"
+      addParams:
+        max_tokens: 512
+        temperature: 0.7
+        top_p: 0.8
+        top_k: 40
+        stop:
+          - "<|im_end|>"
+          - "||"
+          - "Assistant:"
+          - "Human:"
+      dropParams:
+        - stop
+        - temperature
+        - top_p
+
+    # OpenTyphoon.ai API
+    - name: "OpenTyphoon"
+      apiKey: "sk-BET4yZq8hG3uoUwo2ilOyMYEhoXk1Uel3Gz9v5VpGMk6Hio7"  # Replace with your actual API key
+      baseURL: "https://api.opentyphoon.ai/v1/chat/completions"
+      models:
+        default:
+          - "typhoon-instruct"
+          - "typhoon-v1.5-instruct"
+          - "typhoon-v1.5x-70b-instruct"
+          - "typhoon-v2-8b-instruct"
+          - "typhoon-v2-70b-instruct"
+        fetch: false
+      addParams:
+        max_tokens: 512
+        temperature: 0.6
+        top_p: 0.95
+        repetition_penalty: 1.05
+        stream: false
+      dropParams:
+        - stop
+        - metadata
+        - store
+      titleConvo: true
+      modelDisplayLabel: "OpenTyphoon AI"
+      iconURL: "https://cdn-icons-png.flaticon.com/128/8484/8484072.png"
+
+    # Hugging Face Microsoft Phi-4 API
+    - name: "Hugging Face"
+      apiKey: "user_provided"
+      baseURL: "https://api-inference.huggingface.co/v1"
+      models:
+        default: ["unsloth/Llama-3.3-70B-Instruct", "unsloth/phi-4-unsloth-bnb-4bit", "PowerInfer/SmallThinker-3B-Preview", "impira/layoutlm-document-qa", "mistralai/Mistral-Nemo-Instruct-2407","NousResearch/Hermes-3-Llama-3.1-8B","meta-llama/Llama-3.3-70B-Instruct", "tiiuae/falcon-7b-instruct","Qwen/Qwen2.5-Coder-32B-Instruct", "microsoft/Phi-3.5-mini-instruct", "meta-llama/Llama-3.2-3B-Instruct", "meta-llama/Llama-3.1-8B-Instruct", "meta-llama/Llama-3.1-70B-Instruct", "Qwen/Qwen2.5-72B-Instruct", "Qwen/QwQ-32B-Preview", "CodeLlama/CodeLlama-34B-Instruct-hf", "Meta-Llama/Llama-3.1-70B-Instruct", "meta-llama/Llama-3.2-1B-Instruct"]
+        fetch: false
+      titleConvo: true
+      titleModel: "NousResearch/Hermes-3-Llama-3.1-8B"
+      summarize: false
+      summaryModel: "NousResearch/Hermes-3-Llama-3.1-8B"
+      forcePrompt: false
+      modelDisplayLabel: "Hugging Face "
+      iconURL: "https://huggingface.co/favicon.ico"
+      addParams:
+        max_tokens: 500
+        stream: true
+      dropParams:
+        - stop
+        - temperature
+        - top_p
+
+
+# See the Custom Configuration Guide for more information:
+# https://docs.librechat.ai/install/configuration/custom_config.html
