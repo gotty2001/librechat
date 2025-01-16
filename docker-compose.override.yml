@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  rag_api:
+    image: ghcr.io/danny-avila/librechat-rag-api-dev:latest
+    environment:
+      - RAG_API_URL=http://host.docker.internal:8000
+      - EMBEDDINGS_PROVIDER=huggingface
+      - HF_TOKEN=hf_xxxxxxxxxxxxxxxxxxxxxxx
+    ports:
+      - "8000:8000"
+    command: ["npm", "run", "backend"]
